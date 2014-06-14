@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CadeMeuMedicoBDModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="CadeMeuMedicoBDEntities" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="BannersPublicitarios" EntityType="CadeMeuMedicoBDModel.BannersPublicitarios" />
+    <EntitySet Name="Cidades" EntityType="CadeMeuMedicoBDModel.Cidades" />
+    <EntitySet Name="Especialidades" EntityType="CadeMeuMedicoBDModel.Especialidades" />
+    <EntitySet Name="Medicos" EntityType="CadeMeuMedicoBDModel.Medicos" />
+    <EntitySet Name="sysdiagrams" EntityType="CadeMeuMedicoBDModel.sysdiagrams" />
+    <EntitySet Name="Usuarios" EntityType="CadeMeuMedicoBDModel.Usuarios" />
+    <AssociationSet Name="fk_medicos_cidades" Association="CadeMeuMedicoBDModel.fk_medicos_cidades">
+      <End Role="Cidades" EntitySet="Cidades" />
+      <End Role="Medicos" EntitySet="Medicos" />
+    </AssociationSet>
+    <AssociationSet Name="fk_medicos_especialidades" Association="CadeMeuMedicoBDModel.fk_medicos_especialidades">
+      <End Role="Especialidades" EntitySet="Especialidades" />
+      <End Role="Medicos" EntitySet="Medicos" />
+    </AssociationSet>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(CadeMeuMedicoBDModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(CadeMeuMedicoBDModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+  </EntityContainer>
+  <EntityType Name="BannersPublicitarios">
+    <Key>
+      <PropertyRef Name="IDBanner" />
+    </Key>
+    <Property Type="Int64" Name="IDBanner" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="TituloCampanha" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="BannerCampanha" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="LinkBanner" MaxLength="200" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Cidades">
+    <Key>
+      <PropertyRef Name="IDCidade" />
+    </Key>
+    <Property Type="Int32" Name="IDCidade" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="Nome" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Medicos" Relationship="CadeMeuMedicoBDModel.fk_medicos_cidades" FromRole="Cidades" ToRole="Medicos" />
+  </EntityType>
+  <EntityType Name="Especialidades">
+    <Key>
+      <PropertyRef Name="IDEspecialidade" />
+    </Key>
+    <Property Type="Int32" Name="IDEspecialidade" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="Nome" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Medicos" Relationship="CadeMeuMedicoBDModel.fk_medicos_especialidades" FromRole="Especialidades" ToRole="Medicos" />
+  </EntityType>
+  <EntityType Name="Medicos">
+    <Key>
+      <PropertyRef Name="IDMedico" />
+    </Key>
+    <Property Type="Int64" Name="IDMedico" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="CRM" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Nome" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Endereco" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Bairro" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Email" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="Boolean" Name="AtendePorConvenio" Nullable="false" />
+    <Property Type="Boolean" Name="TemClinica" Nullable="false" />
+    <Property Type="String" Name="WebsiteBlog" MaxLength="80" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="IDCidade" Nullable="false" />
+    <Property Type="Int32" Name="IDEspecialidade" Nullable="false" />
+    <NavigationProperty Name="Cidades" Relationship="CadeMeuMedicoBDModel.fk_medicos_cidades" FromRole="Medicos" ToRole="Cidades" />
+    <NavigationProperty Name="Especialidades" Relationship="CadeMeuMedicoBDModel.fk_medicos_especialidades" FromRole="Medicos" ToRole="Especialidades" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Type="String" Name="name" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="principal_id" Nullable="false" />
+    <Property Type="Int32" Name="diagram_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="version" />
+    <Property Type="Binary" Name="definition" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Usuarios">
+    <Key>
+      <PropertyRef Name="IDUsuario" />
+    </Key>
+    <Property Type="Int64" Name="IDUsuario" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="Nome" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Login" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Senha" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Email" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <Association Name="fk_medicos_cidades">
+    <End Type="CadeMeuMedicoBDModel.Cidades" Role="Cidades" Multiplicity="1" />
+    <End Type="CadeMeuMedicoBDModel.Medicos" Role="Medicos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cidades">
+        <PropertyRef Name="IDCidade" />
+      </Principal>
+      <Dependent Role="Medicos">
+        <PropertyRef Name="IDCidade" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_medicos_especialidades">
+    <End Type="CadeMeuMedicoBDModel.Especialidades" Role="Especialidades" Multiplicity="1" />
+    <End Type="CadeMeuMedicoBDModel.Medicos" Role="Medicos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Especialidades">
+        <PropertyRef Name="IDEspecialidade" />
+      </Principal>
+      <Dependent Role="Medicos">
+        <PropertyRef Name="IDEspecialidade" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+</Schema>

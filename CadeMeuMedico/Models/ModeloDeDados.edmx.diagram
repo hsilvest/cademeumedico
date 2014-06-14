@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="07126749c5be43cda0252d29dc0fde4b" Name="Diagram1" ZoomLevel="75">
+        <EntityTypeShape EntityType="CadeMeuMedicoBDModel.BannersPublicitarios" Width="1.5" PointX="0.5" PointY="12.75" />
+        <EntityTypeShape EntityType="CadeMeuMedicoBDModel.Cidades" Width="1.5" PointX="3.375" PointY="12.5" />
+        <EntityTypeShape EntityType="CadeMeuMedicoBDModel.Especialidades" Width="1.5" PointX="5.5" PointY="16.5" />
+        <EntityTypeShape EntityType="CadeMeuMedicoBDModel.Medicos" Width="1.5" PointX="1.875" PointY="15.625" />
+        <EntityTypeShape EntityType="CadeMeuMedicoBDModel.sysdiagrams" Width="1.5" PointX="6.125" PointY="13.5" />
+        <EntityTypeShape EntityType="CadeMeuMedicoBDModel.Usuarios" Width="1.5" PointX="1.375" PointY="10.25" />
+        <AssociationConnector Association="CadeMeuMedicoBDModel.fk_medicos_cidades" />
+        <AssociationConnector Association="CadeMeuMedicoBDModel.fk_medicos_especialidades" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
